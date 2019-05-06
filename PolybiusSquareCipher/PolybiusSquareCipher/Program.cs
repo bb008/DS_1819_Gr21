@@ -17,17 +17,16 @@ namespace PolybiusSquareCipher
                 {'p', 'q', 'r', 's','t'},
                 {'u', 'v', 'x', 'y','z'}};
 
-            // E kerkojme nje fjali nga perdoruesi
             Console.Write("Fjalia per enkriptim: ");
             string fjalia = Console.ReadLine();
 
             int gjatesia = fjalia.Length;
 
-            // Konvertojme fjaline e marre nga String ne Char-Array
             char[] fjaliaArray = fjalia.ToCharArray();
 
             int i, j, k = 0;
-            string gjysmaPare = "", gjysmaFundit = "";
+            int[] gjysmaPare = new int[gjatesia];
+            int[] gjysmaFundit = new int[gjatesia];
 
             while (k < gjatesia)
             {
@@ -37,28 +36,21 @@ namespace PolybiusSquareCipher
                     {
                         if (fjaliaArray[k] == polybius[i, j])
                         {
-                            gjysmaPare += i;
-                            gjysmaFundit += j;
+                            gjysmaPare[k] = i;
+                            gjysmaFundit[k] = j;
                         }
                     }
                 }
                 k = k + 1;
             }
 
-            string fjaliaString = gjysmaPare + gjysmaFundit;
-
-            // Konvertojme prej String ne Char-Array
-            char[] fjaliaCharArray = fjaliaString.ToCharArray();
-
-            // Konvertojme prej Char-Array ne Int-Array
-            int[] fjaliaIntArray = Array.ConvertAll(fjaliaCharArray, c => (int)Char.GetNumericValue(c));
-
+            int[] teresia = gjysmaPare.Concat(gjysmaFundit).ToArray();
 
             string fjaliaEnkriptune = "";
             int z = 0, m = 0, n = 1;
             while (z < gjatesia)
             {
-                fjaliaEnkriptune += polybius[fjaliaIntArray[m], fjaliaIntArray[n]];
+                fjaliaEnkriptune += polybius[teresia[m], teresia[n]];
                 m += 2;
                 n += 2;
                 z = z + 1;
