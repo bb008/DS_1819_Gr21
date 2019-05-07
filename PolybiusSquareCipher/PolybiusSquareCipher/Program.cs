@@ -87,18 +87,18 @@ namespace PolybiusSquareCipher
 
             int[] fjaliaIntArray = Array.ConvertAll(fjaliaCharArray, c => (int)Char.GetNumericValue(c));
 
-            string fjaliaDekriptune = "";
+            string fjaliaDekriptuar = "";
             m = 0;
             z = 0;
             n = gjatesia02;
             while (z < gjatesia02)
             {
-                fjaliaDekriptune += polybius[fjaliaIntArray[m], fjaliaIntArray[n]];
+                fjaliaDekriptuar += polybius[fjaliaIntArray[m], fjaliaIntArray[n]];
                 m++;
                 n++;
                 z = z + 1;
             }
-            Console.WriteLine("Fjalia e dekriptuar: " + fjaliaDekriptune);
+            Console.WriteLine("Fjalia e dekriptuar: " + fjaliaDekriptuar);
         }
     }
 }
