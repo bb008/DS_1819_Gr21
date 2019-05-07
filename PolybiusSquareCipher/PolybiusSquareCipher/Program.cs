@@ -17,6 +17,8 @@ namespace PolybiusSquareCipher
                 {'p', 'q', 'r', 's','t'},
                 {'u', 'v', 'x', 'y','z'}};
 
+            // Enkriptimi
+
             Console.Write("Fjalia per enkriptim: ");
             string fjalia = Console.ReadLine();
 
@@ -56,6 +58,47 @@ namespace PolybiusSquareCipher
                 z = z + 1;
             }
             Console.WriteLine("Fjalia e enkriptuar: " + fjaliaEnkriptune);
+            Console.WriteLine();
+
+            // Dekriptimi
+
+            Console.Write("Fjalia per dekriptim: ");
+            string fjaliaPerDekriptim = Console.ReadLine();
+            int gjatesia02 = fjaliaPerDekriptim.Length;
+            char[] fjaliaArray02 = fjaliaPerDekriptim.ToCharArray();
+            string fjaliaStr = "";
+            k = 0;
+            while (k < gjatesia)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 5; j++)
+                    {
+                        if (fjaliaArray02[k] == polybius[i, j])
+                        {
+                            fjaliaStr = fjaliaStr + i + j;
+                        }
+                    }
+                }
+                k = k + 1;
+            }
+
+            char[] fjaliaCharArray = fjaliaStr.ToCharArray();
+
+            int[] fjaliaIntArray = Array.ConvertAll(fjaliaCharArray, c => (int)Char.GetNumericValue(c));
+
+            string fjaliaDekriptune = "";
+            m = 0;
+            z = 0;
+            n = gjatesia02;
+            while (z < gjatesia02)
+            {
+                fjaliaDekriptune += polybius[fjaliaIntArray[m], fjaliaIntArray[n]];
+                m++;
+                n++;
+                z = z + 1;
+            }
+            Console.WriteLine("Fjalia e dekriptuar: " + fjaliaDekriptune);
         }
     }
 }
