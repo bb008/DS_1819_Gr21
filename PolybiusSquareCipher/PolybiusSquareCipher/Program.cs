@@ -10,12 +10,34 @@ namespace PolybiusSquareCipher
     {
         static void Main(string[] args)
         {
-            char[,] polybius = new char[5, 5] {
-                {'a', 'b', 'c', 'd','e'},
-                {'f', 'g', 'h', 'i','j'},
-                {'k', 'l', 'm', 'n','o'},
-                {'p', 'q', 'r', 's','t'},
-                {'u', 'v', 'x', 'y','z'}};
+            // Qelesi
+            Console.Write("Qelsi: ");
+            string qelesi = Console.ReadLine();
+
+            qelesi += "abcdefghiklmnopqrstuvwxyz";
+
+            var qelesiUnik = new HashSet<char>(qelesi);
+
+            char[] qelesiArray = new char[25];
+
+            int p = 0;
+            foreach (char c in qelesiUnik)
+            {
+                qelesiArray[p] = c;
+                p++;
+            }
+
+            p = 0;
+            char[,] polybius = new char[5, 5];
+            for (int o = 0; o < 5; o++)
+            {
+                for (int s = 0; s < 5; s++)
+                {
+                    polybius[o, s] = qelesiArray[p];
+                    p++;
+                }
+
+            }
 
             // Enkriptimi
 
@@ -48,16 +70,16 @@ namespace PolybiusSquareCipher
 
             int[] teresia = gjysmaPare.Concat(gjysmaFundit).ToArray();
 
-            string fjaliaEnkriptune = "";
+            string fjaliaEnkriptuar = "";
             int z = 0, m = 0, n = 1;
             while (z < gjatesia)
             {
-                fjaliaEnkriptune += polybius[teresia[m], teresia[n]];
+                fjaliaEnkriptuar += polybius[teresia[m], teresia[n]];
                 m += 2;
                 n += 2;
                 z = z + 1;
             }
-            Console.WriteLine("Fjalia e enkriptuar: " + fjaliaEnkriptune);
+            Console.WriteLine("Fjalia e enkriptuar: " + fjaliaEnkriptuar);
             Console.WriteLine();
 
             // Dekriptimi
@@ -68,7 +90,7 @@ namespace PolybiusSquareCipher
             char[] fjaliaArray02 = fjaliaPerDekriptim.ToCharArray();
             string fjaliaStr = "";
             k = 0;
-            while (k < gjatesia)
+            while (k < gjatesia02)
             {
                 for (i = 0; i < 5; i++)
                 {
