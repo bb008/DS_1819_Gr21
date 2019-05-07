@@ -11,10 +11,11 @@ namespace PolybiusSquareCipher
         static void Main(string[] args)
         {
             // Qelesi
+
             Console.Write("Qelsi: ");
             string qelesi = Console.ReadLine();
 
-            qelesi += "abcdefghiklmnopqrstuvwxyz";
+            qelesi += "abcdefghijklmnopqrstuvxyz";
 
             var qelesiUnik = new HashSet<char>(qelesi);
 
@@ -29,11 +30,12 @@ namespace PolybiusSquareCipher
 
             p = 0;
             char[,] polybius = new char[5, 5];
-            for (int o = 0; o < 5; o++)
+
+            for (int i = 0; i < 5; i++)
             {
-                for (int s = 0; s < 5; s++)
+                for (int j = 0; j < 5; j++)
                 {
-                    polybius[o, s] = qelesiArray[p];
+                    polybius[i, j] = qelesiArray[p];
                     p++;
                 }
 
@@ -42,23 +44,23 @@ namespace PolybiusSquareCipher
             // Enkriptimi
 
             Console.Write("Fjalia per enkriptim: ");
-            string fjalia = Console.ReadLine();
+            string fjaliaPerEn = Console.ReadLine();
 
-            int gjatesia = fjalia.Length;
+            int gjatesiaEn = fjaliaPerEn.Length;
 
-            char[] fjaliaArray = fjalia.ToCharArray();
+            char[] fjaliaEnArray = fjaliaPerEn.ToCharArray();
 
-            int i, j, k = 0;
-            int[] gjysmaPare = new int[gjatesia];
-            int[] gjysmaFundit = new int[gjatesia];
+            int k = 0;
+            int[] gjysmaPare = new int[gjatesiaEn];
+            int[] gjysmaFundit = new int[gjatesiaEn];
 
-            while (k < gjatesia)
+            while (k < gjatesiaEn)
             {
-                for (i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    for (j = 0; j < 5; j++)
+                    for (int j = 0; j < 5; j++)
                     {
-                        if (fjaliaArray[k] == polybius[i, j])
+                        if (fjaliaEnArray[k] == polybius[i, j])
                         {
                             gjysmaPare[k] = i;
                             gjysmaFundit[k] = j;
@@ -68,13 +70,13 @@ namespace PolybiusSquareCipher
                 k = k + 1;
             }
 
-            int[] teresia = gjysmaPare.Concat(gjysmaFundit).ToArray();
+            int[] fjaliaPlote = gjysmaPare.Concat(gjysmaFundit).ToArray();
 
             string fjaliaEnkriptuar = "";
             int z = 0, m = 0, n = 1;
-            while (z < gjatesia)
+            while (z < gjatesiaEn)
             {
-                fjaliaEnkriptuar += polybius[teresia[m], teresia[n]];
+                fjaliaEnkriptuar += polybius[fjaliaPlote[m], fjaliaPlote[n]];
                 m += 2;
                 n += 2;
                 z = z + 1;
@@ -85,37 +87,41 @@ namespace PolybiusSquareCipher
             // Dekriptimi
 
             Console.Write("Fjalia per dekriptim: ");
-            string fjaliaPerDekriptim = Console.ReadLine();
-            int gjatesia02 = fjaliaPerDekriptim.Length;
-            char[] fjaliaArray02 = fjaliaPerDekriptim.ToCharArray();
-            string fjaliaStr = "";
+            string fjaliaPerDek = Console.ReadLine();
+
+            int gjatesiaDek = fjaliaPerDek.Length;
+
+            char[] fjaliaArray02 = fjaliaPerDek.ToCharArray();
+
+            string fjaliaDekStr = "";
             k = 0;
-            while (k < gjatesia02)
+
+            while (k < gjatesiaDek)
             {
-                for (i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    for (j = 0; j < 5; j++)
+                    for (int j = 0; j < 5; j++)
                     {
                         if (fjaliaArray02[k] == polybius[i, j])
                         {
-                            fjaliaStr = fjaliaStr + i + j;
+                            fjaliaDekStr = fjaliaDekStr + i + j;
                         }
                     }
                 }
                 k = k + 1;
             }
 
-            char[] fjaliaCharArray = fjaliaStr.ToCharArray();
+            char[] fjaliaDekCharArray = fjaliaDekStr.ToCharArray();
 
-            int[] fjaliaIntArray = Array.ConvertAll(fjaliaCharArray, c => (int)Char.GetNumericValue(c));
+            int[] fjaliaDekIntArray = Array.ConvertAll(fjaliaDekCharArray, c => (int)Char.GetNumericValue(c));
 
             string fjaliaDekriptuar = "";
             m = 0;
             z = 0;
-            n = gjatesia02;
-            while (z < gjatesia02)
+            n = gjatesiaDek;
+            while (z < gjatesiaDek)
             {
-                fjaliaDekriptuar += polybius[fjaliaIntArray[m], fjaliaIntArray[n]];
+                fjaliaDekriptuar += polybius[fjaliaDekIntArray[m], fjaliaDekIntArray[n]];
                 m++;
                 n++;
                 z = z + 1;
