@@ -11,29 +11,37 @@ namespace PolybiusSquareCipher
         static void Main(string[] args)
         {
             // Qelesi
+            Console.Write("Numri i rreshtave te matrices: ");
+            int rreshat = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Numri i kolonave te matrices: ");
+            int kolonat = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Matrica pa qelesin: ");  // psh 6x6 abcdefghijklmnopqrstuvxyz0123456789 .
+                                                    // ose 5x5 abcdefghijklmnopqrstuvxyz
+            string matrica = Console.ReadLine();
 
             Console.Write("Qelsi: ");
             string qelesi = Console.ReadLine();
 
-            qelesi += "abcdefghijklmnopqrstuvxyz";
+            qelesi += matrica;
 
-            var qelesiUnik = new HashSet<char>(qelesi);
+            var matricaUnike = new HashSet<char>(qelesi);
 
-            char[] qelesiArray = new char[25];
+            char[] qelesiArray = new char[rreshat * kolonat];
 
             int p = 0;
-            foreach (char c in qelesiUnik)
+            foreach (char c in matricaUnike)
             {
                 qelesiArray[p] = c;
                 p++;
             }
 
             p = 0;
-            char[,] polybius = new char[5, 5];
+            char[,] polybius = new char[rreshat, kolonat];
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < rreshat; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < kolonat; j++)
                 {
                     polybius[i, j] = qelesiArray[p];
                     p++;
@@ -56,9 +64,9 @@ namespace PolybiusSquareCipher
 
             while (k < gjatesiaEn)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < rreshat; i++)
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < kolonat; j++)
                     {
                         if (fjaliaEnArray[k] == polybius[i, j])
                         {
@@ -81,7 +89,7 @@ namespace PolybiusSquareCipher
                 n += 2;
                 z = z + 1;
             }
-            Console.WriteLine("Fjalia e enkriptuar: " + fjaliaEnkriptuar);
+            Console.WriteLine("Fjalia e enkriptuar: " + fjaliaEnkriptuar + ".");
             Console.WriteLine();
 
             // Dekriptimi
@@ -98,9 +106,9 @@ namespace PolybiusSquareCipher
 
             while (k < gjatesiaDek)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < rreshat; i++)
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < kolonat; j++)
                     {
                         if (fjaliaArray02[k] == polybius[i, j])
                         {
